@@ -1,0 +1,8 @@
+# SSH client configuration that uses the private key ~/.ssh/school
+# and disables password authentication
+
+Host 184.72.192.54
+    HostName 184.72.192.54
+    User ubuntu
+    IdentityFile ~/alu-system_engineering-devops/ssh/school
+    PasswordAuthentication no
