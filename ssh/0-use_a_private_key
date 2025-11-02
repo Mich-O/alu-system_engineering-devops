@@ -2,5 +2,5 @@
 #Bash script that uses ssh to connect to your server using the private key ~/.ssh/school with the user ubuntu.
 
 ssh -i ~/.ssh/school ubuntu@184.72.192.54
-#To test locally uncomment this command below 
+#To test locally uncomment this command below and comment the above command
 #ssh -i ~/alu-system_engineering-devops/ssh/school ubuntu@184.72.192.54
