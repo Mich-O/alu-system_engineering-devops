@@ -6,3 +6,4 @@ Host 184.72.192.54
     User ubuntu
     IdentityFile ~/alu-system_engineering-devops/ssh/school
     PasswordAuthentication no
+    
