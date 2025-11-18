@@ -3,4 +3,4 @@
 
 #ssh-keygen -t rsa -b 4096 -f ~/.ssh/school -N "betty"
 #Uncomment and run the command below to create the key pair| Comment out the above command.
-ssh-keygen -t rsa -b 4096 -C "michaelokinyi@AEMOND-II" -f school -N "betty"
+
