@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+#Script that configures a new Ubuntu machine to redirect /redirect_me permanently to https://www.youtube.com/watch?v=uVIxeCLBEgo&pp=ygUUcmVkaXJlY3QgdXNpbmcgbmdpbng%3D
+
+# Install nginx
+sudo apt-get update -y
+sudo apt-get install -y nginx
+
+# Add a new location block for /redirect_me ONLY after the first "location / {" line
+sudo sed -i '0,/location \/ {/a \    location /redirect_me {\n        return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;\n    }\n' /etc/nginx/sites-available/default
+
+# Restart nginx using service (NOT systemctl)
+sudo service nginx restart
