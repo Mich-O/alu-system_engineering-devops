@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+# Installs and configures HAProxy as a load balancer
+
+WEB1_IP="54.204.69.144"
+WEB2_IP="52.91.224.14"
+
+sudo apt-get update -y
+sudo apt-get install -y haproxy
+
+# Enable HAProxy for init script management
+sudo sed -i 's/ENABLED=0/ENABLED=1/' /etc/default/haproxy
+
+# Configure HAProxy
+sudo tee /etc/haproxy/haproxy.cfg > /dev/null <<EOF
+global
+    log /dev/log local0
+    log /dev/log local1 notice
+    daemon
+    maxconn 256
+
+defaults
+    log global
+    mode http
+    option httplog
+    option dontlognull
+    timeout connect 5000ms
+    timeout client 50000ms
+    timeout server 50000ms
+
+frontend http_front
+    bind *:80
+    default_backend http_back
+
+backend http_back
+    balance roundrobin
+    server web-01 $WEB1_IP:80 check
+    server web-02 $WEB2_IP:80 check
+EOF
+
+# Restart HAProxy
+sudo service haproxy restart
