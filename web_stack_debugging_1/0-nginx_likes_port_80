@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# Fix Nginx so that it runs and listens on port 80 AND 8080
+
+rm -f /var/run/nginx.pid
+
+
+ln -sf /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
+
+
+service nginx restart
