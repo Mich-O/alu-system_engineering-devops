@@ -1,12 +1,10 @@
-# Fix the WordPress installation causing Apache to return 500 errors
+# This Puppet manifest restores a missing WordPress file that causes Apache to throw a 500 error
 
-exec { 'fix-wordpress':
-  command => '/bin/sed -i "s/;$/;/" /var/www/html/wp-config.php',
-  onlyif  => '/bin/grep -q "DB_PASSWORD" /var/www/html/wp-config.php',
+file { '/var/www/html/wp-settings.php':
+  ensure  => file,
+  source  => '/usr/share/wordpress/wp-settings.php',
+  owner   => 'www-data',
+  group   => 'www-data',
+  mode    => '0644',
 }
 
-service { 'apache2':
-  ensure    => running,
-  enable    => true,
-  subscribe => Exec['fix-wordpress'],
-}
