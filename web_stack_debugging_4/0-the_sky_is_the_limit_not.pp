@@ -1,3 +1,4 @@
+
 # Fix Nginx configuration to prevent truncated responses under high concurrency
 package { 'nginx':
   ensure => installed,
