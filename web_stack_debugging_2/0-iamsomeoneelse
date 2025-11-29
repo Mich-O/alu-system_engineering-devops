@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# Run the 'whoami' command as the user passed as argument
+
+user="$1"
+
+# Check if argument is missing
+if [ -z "$user" ]; then
+    echo "Usage: $0 <username>"
+    exit 1
+fi
+
+# Check if the user exists on the system
+if ! id "$user" >/dev/null 2>&1; then
+    echo "Error: user '$user' does not exist"
+    exit 1
+fi
+
+# Run whoami as the specified user
+sudo -u "$user" whoami

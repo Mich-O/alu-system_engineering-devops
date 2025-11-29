@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# Fix Nginx so it runs as the nginx user and listens on port 8080
+
+# 1. Update nginx.conf to run as nginx
+sed -i 's/^user .*/user nginx;/' /etc/nginx/nginx.conf
+
+# 2. Change all listen 80 → 8080 in default site config
+sed -i 's/listen 80 default_server;/listen 8080 default_server;/' /etc/nginx/sites-available/default
+sed -i 's/listen \[::\]:80 default_server;/listen [::]:8080 default_server;/' /etc/nginx/sites-available/default
+
+# 3. Fix permissions so nginx can start as non-root
+chown -R nginx:nginx /var/lib/nginx
+chown -R nginx:nginx /var/log/nginx
+chown -R nginx:nginx /var/cache/nginx
+
+# 4. Restart nginx
+service nginx restart
